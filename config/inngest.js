@@ -10,9 +10,7 @@ export const inngest = new Inngest({ id: "techstore-next" });
 export const syncUserCreation = inngest.createFunction(
   {
     id: "sync-user-from-clerk",
-  },
-  {
-    event: "clerk/user.created",
+    triggers: [{ event: "clerk/user.created" }],
   },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } =
@@ -33,8 +31,8 @@ export const syncUserCreation = inngest.createFunction(
 export const syncUserUpdation = inngest.createFunction(
   {
     id: "update-user-from-clerk",
+    triggers: [{ event: "clerk/user.updated" }],
   },
-  { event: "clerk/user.updated" },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } =
       event.data;
@@ -53,8 +51,8 @@ export const syncUserUpdation = inngest.createFunction(
 export const syncUserDeletion = inngest.createFunction(
   {
     id: "delete-user-with-clerk",
+    triggers: [{ event: "clerk/user.deleted" }],
   },
-  { event: "clerk/user.deleted" },
   async ({ event }) => {
     const { id } = event.data;
 
